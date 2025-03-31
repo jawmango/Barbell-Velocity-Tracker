@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="HttpClientEndpointsTabState">
+    <option name="requestToText" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;3981fb0ec1e19bc3273f282e09d7090fe4c9894f&quot; value=&quot;###&amp;#10;POST http://localhost:5000/upload&quot; /&gt;&#10;  &lt;entry key=&quot;2e6dd5b01f9b7222f3649a99917bb908b0c567eb&quot; value=&quot;###&amp;#10;GET http://localhost:5000/webcam&quot; /&gt;&#10;  &lt;entry key=&quot;9bcee2b605d54e7f9a92a453c8109f8805ecb93f&quot; value=&quot;###&amp;#10;GET http://localhost:3000/video/image_picker_E9FFA1FC-49BB-48E9-AE7E-D255A4734CEC-55062-000000ADAD34FC6Ctrim.71FD502C-069C-433D-B176-4A345771597A.MOV&amp;#10;&quot; /&gt;&#10;  &lt;entry key=&quot;9537bd6be1cceb47f58bd91bc587c20a63fc794a&quot; value=&quot;###&amp;#10;GET http://localhost:3000/video/image_picker_E9FFA1FC-49BB-48E9-AE7E-D255A4734CEC-55062-000000ADAD34FC6Ctrim.71FD502C-069C-433D-B176-4A345771597A.MOV/summary&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
+  </component>
+</project>
