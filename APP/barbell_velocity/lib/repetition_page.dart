@@ -74,40 +74,11 @@ class _RepetitionPageState extends State<RepetitionPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back,
-                            color: Colors.teal, size: 40),
+                        icon: const Icon(Icons.arrow_back_ios,
+                            color: Colors.teal, size: 25),
                         onPressed: () => Navigator.pop(context),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.delete, color: Colors.teal, size: 40),
-                        onPressed: () => {
-                          showDialog<void>(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text('Confirm Deletion'),
-                                  content: Text(
-                                      'Do you want to delete this record?'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text('Cancel')),
-                                    TextButton(
-                                      onPressed: () {
-                                        deleteResult(widget.exerciseId);
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text('Delete'),
-                                    ),
-                                  ],
-                                );
-                              })
-                        },
-                      )
+                      
                     ],
                   ),
                 ),
@@ -245,12 +216,24 @@ class _RepetitionPageState extends State<RepetitionPage> {
                                           .velocityLoss;
                                     }
 
-                                    return Text(
-                                      '-${vl.toStringAsFixed(2)} %',
-                                      style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold),
+                                    return Tooltip(
+                                      message: vl.round()>=25 && vl.round()<40?
+                                          'Your set is ideal for muscle development!' :vl.round()>=40? 'Good job, that set was until failure!' :'Your set is ideal for maximum strength development!',
+                                      textStyle: const TextStyle(
+                                          color: Colors
+                                              .white),
+                                      decoration: BoxDecoration(
+                                        color: Colors
+                                            .teal,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text(
+                                        '-${vl.toStringAsFixed(2)} %',
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     );
                                   } else if (snapshot.hasError) {
                                     return Text(
@@ -263,7 +246,7 @@ class _RepetitionPageState extends State<RepetitionPage> {
                             Text(
                               'Velocity Loss',
                               style:
-                                  TextStyle(color: Colors.teal, fontSize: 17),
+                                  TextStyle(color: Colors.teal, fontSize: 17, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               height: 5,
@@ -297,21 +280,35 @@ class _RepetitionPageState extends State<RepetitionPage> {
                                     List<ResultsRepetition> results =
                                         snapshot.data!;
                                     double peak = 0.0;
+                                    int rep = 0;
 
                                     if (results.isNotEmpty) {
                                       for (var result in results) {
                                         if (result.velocityC > peak) {
                                           peak = result.velocityC;
+                                          rep = result.repetition;
                                         }
                                       }
                                     }
 
-                                    return Text(
-                                      '${peak.toStringAsFixed(2)} m/s',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold),
+                                    return Tooltip(
+                                      message:
+                                          'Your best execution was on repetition $rep!',
+                                      textStyle: TextStyle(
+                                          color: Colors
+                                              .white),
+                                      decoration: BoxDecoration(
+                                        color: Colors
+                                            .teal,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text(
+                                        '${peak.toStringAsFixed(2)} m/s',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     );
                                   } else if (snapshot.hasError) {
                                     return Text(
@@ -324,7 +321,7 @@ class _RepetitionPageState extends State<RepetitionPage> {
                             Text(
                               'Peak Velocity',
                               style:
-                                  TextStyle(color: Colors.teal, fontSize: 17),
+                                  TextStyle(color: Colors.teal, fontSize: 17, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               height: 5,
@@ -450,7 +447,7 @@ class _RepetitionPageState extends State<RepetitionPage> {
                         return Text(
                             'Snapshot error ${widget.exerciseId}: ${snapshot.error}');
                       }
-                  
+
                       return Center(child: const CircularProgressIndicator());
                     },
                   ),

@@ -7,16 +7,32 @@ import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatelessWidget {
   final File processedVideoFile;
-  final File summaryFile;
   final String filename;
-  const VideoPlayerScreen({required this.processedVideoFile, required this.summaryFile, required this.filename, super.key});
+  const VideoPlayerScreen(
+      {required this.processedVideoFile, required this.filename, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Processed Video', style: TextStyle(color: Colors.teal),),
-        backgroundColor: const Color.fromARGB(230, 0, 0, 0),
+        title: const Text(
+          'Processed Video',
+          style: TextStyle(color: Colors.teal),
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.teal,
+        ),
+        // backgroundColor: const Color.fromARGB(230, 0, 0, 0),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/bg_9.jpg"),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
         actions: [
           FutureBuilder<ResultsExercise?>(
             future: findResultsExerciseByFilename(filename),
@@ -53,6 +69,12 @@ class VideoPlayerScreen extends StatelessWidget {
         ],
       ),
       body: Container(
+        // decoration: const BoxDecoration(
+        //       image: DecorationImage(
+        //         image: AssetImage("assets/bg_9.jpg"),
+        //         fit: BoxFit.fill,
+        //       ),
+        //     ),
         color: const Color.fromARGB(230, 0, 0, 0),
         child: Center(
           child: VideoPlayerWidget(processedVideoFile: processedVideoFile),
@@ -61,13 +83,13 @@ class VideoPlayerScreen extends StatelessWidget {
     );
   }
 }
-Future<ResultsExercise?> findResultsExerciseByFilename(String filename) async {
-    List<ResultsExercise> results = await fetchResultsExercise();
-    return results.firstWhere(
-      (result) => result.filename == filename,
-    );
-  }
 
+Future<ResultsExercise?> findResultsExerciseByFilename(String filename) async {
+  List<ResultsExercise> results = await fetchResultsExercise();
+  return results.firstWhere(
+    (result) => result.filename == filename,
+  );
+}
 
 class VideoPlayerWidget extends StatefulWidget {
   final File processedVideoFile;
@@ -92,9 +114,8 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
       }).catchError((error) {
         print('Error initializing video: $error');
       });
-      futureResultsExercise = fetchResultsExercise();
+    futureResultsExercise = fetchResultsExercise();
   }
-   
 
   @override
   Widget build(BuildContext context) {

@@ -135,8 +135,8 @@ Future<List<ResultsPath>> fetchResultsPath(int exerciseId) async{
   }
 }
 
-Future<List<ResultsRepetition>?> deleteResult(int exerciseId) async{
-  final uri = Uri.parse('$address2/remove?id=$exerciseId');
+Future<List<ResultsRepetition>?> deleteResult(int exerciseId, String filename) async{
+  final uri = Uri.parse('$address2/remove?id=$exerciseId&filename=$filename');
   final response = await http.delete(uri);
 
   if (response.statusCode == 200){

@@ -58,7 +58,6 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
           MaterialPageRoute(
             builder: (context) => VideoPlayerScreen(
               processedVideoFile: processedVideoFile!,
-              summaryFile: summaryFile!,
               filename: filename!,
             ),
           ),
@@ -72,100 +71,95 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
     return GestureDetector(
       onTap: () {
         Future.delayed(const Duration(milliseconds: 50), () {
-      FocusScope.of(context).unfocus();
-    });
+          FocusScope.of(context).unfocus();
+        });
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        body: Stack(
-          children: [
-            // Background Image
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(widget.backgroundImage),
-                  fit: BoxFit.cover,
-                ),
+        appBar: AppBar(
+          title: Text(
+            widget.exerciseName,
+            style: const TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+          iconTheme: const IconThemeData(
+            color: Colors.black,
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/bg_7.JPG"),
+                alignment: Alignment.topCenter,
+                fit: BoxFit.cover,
               ),
             ),
-
-            SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: IconButton(
-                            icon: const Icon(Icons.arrow_back,
-                                color: Colors.black, size: 40),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      widget.exerciseName,
-                      style: const TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      child: Image.asset(
-                        widget.imagePath,
-                        width: 350,
-                        height: 350,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    inputField(
-                      label: "Load",
-                      controller: _loadController,
-                      suffix: unitToggleButton(),
-                    ),
-                    const SizedBox(height: 15),
-                    inputField(
-                      label: "Barbell Size",
-                      child: DropdownButton<String>(
-                        value: _barbellSize,
-                        dropdownColor: Colors.white,
-                        icon: const Icon(Icons.arrow_drop_down,
-                            color: Colors.white),
-                        items: [
-                          "Standard",
-                          "Olympic",
-                        ].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value,
-                                style: const TextStyle(color: Colors.white)),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _barbellSize = newValue!;
-                          });
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    uploadVideoSection(),
-                  ],
+          ),
+          automaticallyImplyLeading: isUploading ? false : true,
+        ),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(widget.backgroundImage),
+              alignment: Alignment.bottomCenter,
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Column(
+            children: [
+              const SizedBox(height: 15),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                ),
+                padding: const EdgeInsets.all(8),
+                child: Image.asset(
+                  widget.imagePath,
+                  width: 350,
+                  height: 350,
+                  fit: BoxFit.contain,
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 15),
+              inputField(
+                label: "Load",
+                controller: _loadController,
+                suffix: unitToggleButton(),
+              ),
+              const SizedBox(height: 15),
+              inputField(
+                label: "Barbell Size",
+                child: DropdownButton<String>(
+                  value: _barbellSize,
+                  dropdownColor: Colors.teal,
+                  icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                  items: [
+                    "Standard",
+                    "Olympic",
+                  ].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value,
+                          style: const TextStyle(color: Colors.white)),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _barbellSize = newValue!;
+                    });
+                  },
+                ),
+              ),
+              const SizedBox(height: 15),
+              uploadVideoSection(),
+            ],
+          ),
         ),
       ),
     );
@@ -218,7 +212,8 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
   Widget unitToggleButton() {
     return DropdownButton<String>(
       value: _unit,
-      dropdownColor: Colors.white,
+      dropdownColor: Colors.teal,
+      icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
       underline: Container(),
       items: ["kg", "lbs"].map((String unit) {
         return DropdownMenuItem<String>(
@@ -257,17 +252,14 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
                   ),
                 ],
               )
-            : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 0),
-                child: ElevatedButton(
-                  onPressed: _uploadVideo,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,
-                    foregroundColor: Colors.white,
-                    fixedSize: const Size(330, 55),
-                  ),
-                  child: const Text('Upload Video'),
+            : ElevatedButton(
+                onPressed: _uploadVideo,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.teal,
+                  foregroundColor: Colors.white,
+                  fixedSize: const Size(330, 55),
                 ),
+                child: const Text('Upload Video'),
               ),
         if (processedVideoFile != null && !isUploading)
           Padding(
@@ -279,7 +271,6 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
                   MaterialPageRoute(
                     builder: (context) => VideoPlayerScreen(
                       processedVideoFile: processedVideoFile!,
-                      summaryFile: summaryFile!,
                       filename: filename!,
                     ),
                   ),

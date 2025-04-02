@@ -1,6 +1,7 @@
 import 'package:barbell_velocity/exercise.dart';
 import 'package:barbell_velocity/guide_page.dart';
 import 'package:barbell_velocity/result_page.dart';
+import 'package:barbell_velocity/videos_page.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -66,7 +67,7 @@ class HomePageContent extends StatelessWidget {
             onVideosPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ResultPage()),
+                MaterialPageRoute(builder: (context) => const VideosPage()),
               );
             },
           ),
