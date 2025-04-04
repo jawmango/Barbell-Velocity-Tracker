@@ -22,6 +22,7 @@ class GuidePage extends StatelessWidget {
                     "assets/guide_image.png",
                     fit: BoxFit.cover,
                   ),
+<<<<<<< Updated upstream
                 ),
 
                 Padding(
@@ -95,6 +96,69 @@ class GuidePage extends StatelessWidget {
                             "Start",
                             style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
+=======
+                  const SizedBox(height: 20),
+                  sectionHeader("Recording Guide"),
+                  sectionText("Remove Other Barbells and Plates"),
+                  sectionText("Use good lighting"),
+                  sectionText("Ensure Camera Stabilization"),
+                  sectionText("1080p & 30FPS Video Settings"),
+                  const SizedBox(height: 20),
+                  const Divider(
+                    color: Colors.teal,
+                    thickness: 1,
+                  ),
+                  const SizedBox(height: 20),
+                  sectionHeader("Fitness Goals"),
+                  sectionTitle("Strength Training"),
+                  bulletPoint("Focus: Building maximum strength by lifting heavy weights with lower repetitions."),
+                  bulletPoint("Repetitions: 1-6 reps per set"),
+                  bulletPoint("Load: Heavy weight"),
+                  bulletPoint("Rest Time: 2-5 minutes between sets"),
+
+                  sectionTitle("Endurance"),
+                  bulletPoint("Focus: Enhancing muscular endurance by performing more repetitions with lighter loads."),
+                  bulletPoint("Repetitions: 12-20+ reps per set"),
+                  bulletPoint("Load: Light to Heavy weight"),
+                  bulletPoint("Rest Time: 30-60 seconds between sets"),
+
+                  sectionTitle("Injury Prevention"),
+                  bulletPoint("Focus: Increasing muscle size through moderate reps and time under tension."),
+                  bulletPoint("Repetitions: 6-12 reps per set"),
+                  bulletPoint("Load: Moderate to Heavy weight"),
+                  bulletPoint("Rest Time: 30-90 seconds between sets"),
+
+                  const SizedBox(height: 20),
+                  const Divider(
+                    color: Colors.teal,
+                    thickness: 1,
+                  ),
+                  const SizedBox(height: 20),
+                  sectionHeader("Velocity"),
+                  sectionTitle("Mean Velocity"),
+                  sectionText(
+                      "The average speed of the barbell throughout the full range of motion in a lift."),
+                  sectionTitle("Peak Velocity"),
+                  sectionText(
+                      "The highest speed reached by the barbell during a lift."),
+                  sectionTitle("Velocity Loss"),
+                  sectionText(
+                      "The percentage decrease in velocity between reps."),
+                  const SizedBox(height: 20),
+                  const Divider(
+                    color: Colors.teal,
+                    thickness: 1,
+                  ),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.teal,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 145, vertical: 5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+>>>>>>> Stashed changes
                         ),
                       ),
 
@@ -150,4 +214,35 @@ class GuidePage extends StatelessWidget {
       child: Text(text, style: const TextStyle(fontSize: 18, color: Colors.white)),
     );
   }
+
+  // Bullet Point Widget with Padding
+Widget bulletPoint(String text) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 40, top: 5),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "• ",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+          ),
+        ),
+        Expanded(
+          child: Text(
+            text,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 }
