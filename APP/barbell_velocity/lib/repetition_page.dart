@@ -78,7 +78,6 @@ class _RepetitionPageState extends State<RepetitionPage> {
                             color: Colors.teal, size: 25),
                         onPressed: () => Navigator.pop(context),
                       ),
-                      
                     ],
                   ),
                 ),
@@ -217,14 +216,16 @@ class _RepetitionPageState extends State<RepetitionPage> {
                                     }
 
                                     return Tooltip(
-                                      message: vl.round()>=25 && vl.round()<40?
-                                          'Your set is ideal for muscle development!' :vl.round()>=40? 'Good job, that set was until failure!' :'Your set is ideal for maximum strength development!',
-                                      textStyle: const TextStyle(
-                                          color: Colors
-                                              .white),
+                                      message: vl.round() >= 25 &&
+                                              vl.round() < 40
+                                          ? 'Your set is ideal for muscle hypertrophy!'
+                                          : vl.round() >= 40
+                                              ? 'Good job, that set was until failure but be careful!'
+                                              : 'Your set is ideal for maximum strength development!',
+                                      textStyle:
+                                          const TextStyle(color: Colors.white),
                                       decoration: BoxDecoration(
-                                        color: Colors
-                                            .teal,
+                                        color: Colors.teal,
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       child: Text(
@@ -245,8 +246,10 @@ class _RepetitionPageState extends State<RepetitionPage> {
                                 }),
                             Text(
                               'Velocity Loss',
-                              style:
-                                  TextStyle(color: Colors.teal, fontSize: 17, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  color: Colors.teal,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               height: 5,
@@ -294,12 +297,9 @@ class _RepetitionPageState extends State<RepetitionPage> {
                                     return Tooltip(
                                       message:
                                           'Your best execution was on repetition $rep!',
-                                      textStyle: TextStyle(
-                                          color: Colors
-                                              .white),
+                                      textStyle: TextStyle(color: Colors.white),
                                       decoration: BoxDecoration(
-                                        color: Colors
-                                            .teal,
+                                        color: Colors.teal,
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       child: Text(
@@ -320,8 +320,10 @@ class _RepetitionPageState extends State<RepetitionPage> {
                                 }),
                             Text(
                               'Peak Velocity',
-                              style:
-                                  TextStyle(color: Colors.teal, fontSize: 17, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  color: Colors.teal,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               height: 5,
@@ -386,6 +388,34 @@ class _RepetitionPageState extends State<RepetitionPage> {
                         }),
                   ),
                 ),
+                const SliverToBoxAdapter(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.circle,
+                        color: Colors.teal,
+                        size: 10,
+                      ),
+                      Text(
+                        "Concentric Trend",
+                        style: TextStyle(color: Colors.teal),
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Icon(
+                        Icons.circle,
+                        color: Colors.red,
+                        size: 10,
+                      ),
+                      Text(
+                        "Eccentric Trend",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ],
+                  ),
+                ),
                 SliverToBoxAdapter(
                   child: FutureBuilder<List<ResultsRepetition>>(
                     future: futureResultsRepetition,
@@ -432,15 +462,6 @@ class _RepetitionPageState extends State<RepetitionPage> {
                                     ],
                                   );
                                 }).toList()),
-                            // ElevatedButton(
-                            //   onPressed: getImage,
-                            //   style: ElevatedButton.styleFrom(
-                            //       backgroundColor: Colors.teal),
-                            //   child: Text(
-                            //     'View Graphs',
-                            //     style: TextStyle(color: Colors.white),
-                            //   ),
-                            // ),
                           ],
                         );
                       } else if (snapshot.hasError) {

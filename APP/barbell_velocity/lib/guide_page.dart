@@ -69,7 +69,7 @@ class GuidePage extends StatelessWidget {
                   sectionText("Remove Other Barbells and Plates"),
                   sectionText("Use good lighting"),
                   sectionText("Ensure Camera Stabilization"),
-                  sectionText("1080p & 30FPS Video Settings"),
+                  sectionText("720p & 30FPS Video Settings"),
                   const SizedBox(height: 20),
                   const Divider(
                     color: Colors.teal,
@@ -80,10 +80,10 @@ class GuidePage extends StatelessWidget {
                   sectionTitle("Strength Training"),
                   sectionText(
                       "Focus on heavier weights with controlled movement."),
-                  sectionTitle("Endurance"),
-                  sectionText("Prioritize higher reps with moderate speed."),
-                  sectionTitle("Injury Prevention"),
-                  sectionText("Ensure correct posture and balanced movement."),
+                  sectionTitle("Endurance Training"),
+                  sectionText("Prioritize higher reps with light load."),
+                  sectionTitle("Hypertrophy Training"),
+                  sectionText("8-12 repetitions with moderate to heavy load."),
                   const SizedBox(height: 20),
                   const Divider(
                     color: Colors.teal,

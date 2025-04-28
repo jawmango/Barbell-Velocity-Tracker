@@ -294,7 +294,7 @@ def get_video(filename):
                         barbell_diameter_pixels = x2 - x1 # box width
                         print(f"Estimated barbell diameter in pixels: {barbell_diameter_pixels}")
 
-                    scale_factor = real_life_barbell_diameter_meters / barbell_diameter_pixels #reference object
+                    scale_factor = real_life_barbell_diameter_meters / barbell_diameter_pixels
 
                     barbell_positions.append((frame_number, center_x, center_y))
                     speed_text = "Speed: N/A"
@@ -415,14 +415,6 @@ def get_video(filename):
                   (0, 0, 0),
                   -1
                   )
-            # cv2.rectangle(
-            #     annotated_frame,
-            #       (0, h-80)
-            #       ,
-            #       (w,h),
-            #       (0,0,0),
-            #       -1
-            #       )
             cv2.putText(
                 annotated_frame,
                 f"Reps: {rep_count}",
@@ -474,26 +466,6 @@ def get_video(filename):
                 cv2.LINE_AA
             )
             cv2.rectangle(annotated_frame, (0, 0), (w, 180), (255,255,255), 2)
-            # cv2.putText(
-            #     annotated_frame,
-            #     exercise_name,
-            #     (10, h-40),
-            #     cv2.FONT_HERSHEY_SIMPLEX,
-            #     1,
-            #     (255, 255, 0),
-            #     2,
-            #     cv2.LINE_AA
-            # )
-            # cv2.putText(
-            #     annotated_frame,
-            #     f"{barbell_size} barbell ({real_life_barbell_diameter_meters} m)",
-            #     (10, h - 10),
-            #     cv2.FONT_HERSHEY_SIMPLEX,
-            #     1,
-            #     (255, 255, 0),
-            #     2,
-            #     cv2.LINE_AA
-            # )
 
             out.write(annotated_frame)
 
@@ -518,14 +490,6 @@ def get_video(filename):
         new_data = pd.DataFrame({'Exercise':[exercise], 'Velocity_2':[round (avg_c, 2)]})
         intensity = feedback.predict(new_data)
         exercise_table.intensity = intensity[0]
-        # print(f"Total reps completed: {rep_count}")
-        # print(vel_rep)
-        # print(avg_c)
-        # print(vel_loss)
-        # print(exercise_name)
-        # print(barbell_size)
-        # print(real_life_barbell_diameter_meters)
-        # print(load)
         db.session.commit()
 
         return send_from_directory(app.config['RESULT_FOLDER'], filename+'_output.mp4')

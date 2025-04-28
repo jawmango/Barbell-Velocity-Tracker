@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/bg_7.JPG"),
+                image: AssetImage("assets/bg_9.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -91,7 +91,7 @@ class HomePageContent extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50),
                 ),
               ),
-              child: const Text("START", style: TextStyle(color: Colors.black),),
+              child: const Text("START", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
             ),
           ),
         ],
@@ -125,7 +125,7 @@ class HomeHeader extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 37,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF444444),
+                  color: Colors.teal,
                 ),
               ),
             ],
@@ -194,9 +194,9 @@ class ActionButtons extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: Colors.black),
+          Icon(icon, color: Colors.teal),
           const SizedBox(width: 3),
-          Text(label, style: const TextStyle(color: Colors.black, fontSize: 25)),
+          Text(label, style: const TextStyle(color: Colors.white, fontSize: 25)),
         ],
       ),
     );

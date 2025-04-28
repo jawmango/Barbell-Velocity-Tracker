@@ -12,14 +12,14 @@ import 'package:path_provider/path_provider.dart';
 const String address = "http://127.0.0.1:3000/";
 const String address2 = "http://192.168.1.3:3000/";
 
-// fetchdata(String url)async{ //fetch data from url and return the body of the api
+// fetchdata(String url)async{
 //   http.Response response = await http.get(Uri.parse(url));
 //   return response.body;
 // }
 
-Future<String?> uploadVideo() async { //POST 
+Future<String?> uploadVideo(bool gallery) async { //POST 
   final picker = ImagePicker();
-  final pickedFile = await picker.pickVideo(source: ImageSource.gallery);
+  final pickedFile = await picker.pickVideo(source: gallery?ImageSource.gallery:ImageSource.camera);
 
   if (pickedFile == null){
     return null;
@@ -27,7 +27,7 @@ Future<String?> uploadVideo() async { //POST
 
   else{
   final File file = File(pickedFile.path);
-  final uri = Uri.parse('${address2}upload'); //http://10.0.2.2:5000/ for android simulator
+  final uri = Uri.parse('${address}upload'); //http://10.0.2.2:5000/ android simulator
   
   final request = http.MultipartRequest('POST', uri)
     ..files.add(http.MultipartFile(
@@ -53,7 +53,7 @@ Future<String?> uploadVideo() async { //POST
 }
 
 Future<File?> getProcessedVideo(String filename, String exerciseName, String load, String barbellSize) async { //GET
-  final uri = Uri.parse('${address2}video/$filename?exercise=$exerciseName&load=$load&barbell=$barbellSize');
+  final uri = Uri.parse('${address}video/$filename?exercise=$exerciseName&load=$load&barbell=$barbellSize');
   
   final response = await http.get(uri);
 
@@ -72,7 +72,7 @@ Future<File?> getProcessedVideo(String filename, String exerciseName, String loa
 }
 
 Future<File?> getSummary(String filename) async { //GET
-  final uri = Uri.parse('${address2}video/$filename/summary');
+  final uri = Uri.parse('${address}video/$filename/summary');
   
   final response = await http.get(uri);
 
@@ -91,7 +91,7 @@ Future<File?> getSummary(String filename) async { //GET
 }
 
 Future<List<ResultsExercise>> fetchResultsExercise() async{
-  final uri = Uri.parse('$address2/results');
+  final uri = Uri.parse('$address/results');
   final response = await http.get(uri);
 
   if (response.statusCode == 200){
@@ -106,7 +106,7 @@ Future<List<ResultsExercise>> fetchResultsExercise() async{
 }
 
 Future<List<ResultsRepetition>> fetchResultsRepetition(int exerciseId) async{
-  final uri = Uri.parse('$address2/repetition?id=$exerciseId');
+  final uri = Uri.parse('$address/repetition?id=$exerciseId');
   final response = await http.get(uri);
 
   if (response.statusCode == 200){
@@ -121,7 +121,7 @@ Future<List<ResultsRepetition>> fetchResultsRepetition(int exerciseId) async{
 }
 
 Future<List<ResultsPath>> fetchResultsPath(int exerciseId) async{
-  final uri = Uri.parse('$address2/path?id=$exerciseId');
+  final uri = Uri.parse('$address/path?id=$exerciseId');
   final response = await http.get(uri);
 
   if (response.statusCode == 200){
@@ -136,7 +136,7 @@ Future<List<ResultsPath>> fetchResultsPath(int exerciseId) async{
 }
 
 Future<List<ResultsRepetition>?> deleteResult(int exerciseId, String filename) async{
-  final uri = Uri.parse('$address2/remove?id=$exerciseId&filename=$filename');
+  final uri = Uri.parse('$address/remove?id=$exerciseId&filename=$filename');
   final response = await http.delete(uri);
 
   if (response.statusCode == 200){

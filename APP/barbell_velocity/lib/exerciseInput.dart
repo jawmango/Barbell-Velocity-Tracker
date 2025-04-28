@@ -13,7 +13,7 @@ class ExerciseInputPage extends StatefulWidget {
     super.key,
     required this.exerciseName,
     required this.imagePath,
-    this.backgroundImage = "assets/bg_7.JPG",
+    this.backgroundImage = "assets/bg_9.jpg",
   });
 
   @override
@@ -31,13 +31,13 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
   bool isUploading = false;
   String? filename;
 
-  void _uploadVideo() async {
+  void _uploadVideo({required bool isGallery}) async {
     setState(() {
       isUploading = true;
     });
 
     try {
-      final uploadedfilename = await uploadVideo();
+      final uploadedfilename = await uploadVideo(isGallery);
       if (uploadedfilename != null) filename = uploadedfilename;
       final file = await getProcessedVideo(
           filename!, widget.exerciseName, _loadController.text, _barbellSize);
@@ -82,18 +82,18 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
             style: const TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: Colors.teal,
             ),
           ),
           iconTheme: const IconThemeData(
-            color: Colors.black,
+            color: Colors.teal,
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
           flexibleSpace: Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/bg_7.JPG"),
+                image: AssetImage("assets/bg_9.jpg"),
                 alignment: Alignment.topCenter,
                 fit: BoxFit.cover,
               ),
@@ -102,6 +102,7 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
           automaticallyImplyLeading: isUploading ? false : true,
         ),
         body: Container(
+          height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(widget.backgroundImage),
@@ -109,56 +110,59 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
               fit: BoxFit.cover,
             ),
           ),
-          child: Column(
-            children: [
-              const SizedBox(height: 15),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
+          child: SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            child: Column(
+              children: [
+                const SizedBox(height: 15),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.white,
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  child: Image.asset(
+                    widget.imagePath,
+                    width: 350,
+                    height: 350,
+                    fit: BoxFit.contain,
+                  ),
                 ),
-                padding: const EdgeInsets.all(8),
-                child: Image.asset(
-                  widget.imagePath,
-                  width: 350,
-                  height: 350,
-                  fit: BoxFit.contain,
+                const SizedBox(height: 15),
+                inputField(
+                  label: "Load",
+                  controller: _loadController,
+                  suffix: unitToggleButton(),
                 ),
-              ),
-              const SizedBox(height: 15),
-              inputField(
-                label: "Load",
-                controller: _loadController,
-                suffix: unitToggleButton(),
-              ),
-              const SizedBox(height: 15),
-              inputField(
-                label: "Barbell Size",
-                child: DropdownButton<String>(
-                  value: _barbellSize,
-                  dropdownColor: Colors.teal,
-                  icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
-                  items: [
-                    "Standard",
-                    "Olympic",
-                  ].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value,
-                          style: const TextStyle(color: Colors.white)),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _barbellSize = newValue!;
-                    });
-                  },
+                const SizedBox(height: 15),
+                inputField(
+                  label: "Barbell Size",
+                  child: DropdownButton<String>(
+                    value: _barbellSize,
+                    dropdownColor: Colors.teal,
+                    icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                    items: [
+                      "Standard",
+                      "Olympic",
+                    ].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value,
+                            style: const TextStyle(color: Colors.white)),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _barbellSize = newValue!;
+                      });
+                    },
+                  ),
                 ),
-              ),
-              const SizedBox(height: 15),
-              uploadVideoSection(),
-            ],
+                const SizedBox(height: 15),
+                uploadVideoSection(),
+              ],
+            ),
           ),
         ),
       ),
@@ -252,18 +256,32 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
                   ),
                 ],
               )
-            : ElevatedButton(
-                onPressed: _uploadVideo,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal,
-                  foregroundColor: Colors.white,
-                  fixedSize: const Size(330, 55),
-                ),
-                child: const Text('Upload Video'),
+            : Column(
+                spacing: 30,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => _uploadVideo(isGallery: true),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.teal,
+                      foregroundColor: Colors.white,
+                      fixedSize: const Size(330, 55),
+                    ),
+                    child: const Text('Upload Video'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => _uploadVideo(isGallery: false),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.teal,
+                      foregroundColor: Colors.white,
+                      fixedSize: const Size(330, 55),
+                    ),
+                    child: const Text('Record Video'),
+                  ),
+                ],
               ),
         if (processedVideoFile != null && !isUploading)
           Padding(
-            padding: const EdgeInsets.all(33.0),
+            padding: const EdgeInsets.all(30.0),
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -277,34 +295,13 @@ class _ExerciseInputPageState extends State<ExerciseInputPage> {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.teal, // Change background color
-                foregroundColor: Colors.white, // Text color
+                backgroundColor: Colors.teal,
+                foregroundColor: Colors.white,
                 fixedSize: const Size(330, 55),
               ),
               child: const Text('Play Processed Video'),
             ),
           ),
-        // if (summaryFile != null && !isUploading)
-        //   Padding(
-        //     padding: const EdgeInsets.all(8.0),
-        //     child: ElevatedButton(
-        //       onPressed: () {
-        //         Navigator.push(
-        //           context,
-        //           MaterialPageRoute(
-        //             builder: (context) =>
-        //                 GraphPage(summaryFile: summaryFile!),
-        //           ),
-        //         );
-        //       },
-        //       style: ElevatedButton.styleFrom(
-        //         backgroundColor: Colors.teal, // Change background color
-        //         foregroundColor: Colors.white, // Text color
-        //         fixedSize: const Size(330, 55),
-        //       ),
-        //       child: const Text('View Summary'),
-        //     ),
-        //   ),
       ],
     );
   }

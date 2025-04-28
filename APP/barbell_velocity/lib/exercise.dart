@@ -13,15 +13,15 @@ class ExercisePage extends StatelessWidget {
         title: const Text('Choose an Exercise', style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Colors.teal,
                 ),),
-        iconTheme: const IconThemeData(color: Colors.black,),
+        iconTheme: const IconThemeData(color: Colors.teal,),
         backgroundColor: Colors.transparent,
         elevation: 0,
         flexibleSpace: Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/bg_7.JPG"),
+                image: AssetImage("assets/bg_9.jpg"),
                 alignment: Alignment.topCenter,
                 fit: BoxFit.cover,
               ),
@@ -31,7 +31,7 @@ class ExercisePage extends StatelessWidget {
       body: Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/bg_7.JPG"),
+                image: AssetImage("assets/bg_9.jpg"),
                 alignment: Alignment.bottomCenter,
                 fit: BoxFit.cover,
               ),
@@ -87,7 +87,7 @@ class ExercisePage extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 23,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Colors.white70,
                     ),
                   ),
                 ),
